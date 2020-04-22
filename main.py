@@ -14,16 +14,18 @@ import random
 from settings import *
 from sprites import *
 
+# adding the game class
 class Game:
     def __init__(self):
         # initialize game window, etc
         pg.init()
         pg.mixer.init()
+        # setting the width and height from whatever the width and height is from settings
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.running = True
-
+    # subclass player added
     def new(self):
         # start a new game
         self.all_sprites = Group()
@@ -39,16 +41,15 @@ class Game:
         # self.all_sprites.add(plat2)
         # self.platforms.add(plat2)
         self.run()
-
+    # Game Loop
     def run(self):
-        # Game Loop
         self.playing = True
         while self.playing:
             self.clock.tick(FPS)
             self.events()
             self.update()
             self.draw()
-
+    # updates the self
     def update(self):
         # Game Loop - Update
         self.all_sprites.update()
@@ -58,7 +59,7 @@ class Game:
             self.player.vel.y = 0
             self.player.pos.y = hits[0].rect.top+1
             
-
+    #
     def events(self):
         # Game Loop - events
         for event in pg.event.get():
@@ -68,13 +69,16 @@ class Game:
                     self.playing = False
                 self.running = False
 
+    # draws the player on the screen
     def draw(self):
         # Game Loop - draw
+        # makes the background black
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         # *after* drawing everything, flip the display
         pg.display.flip()
 
+    # shows screen
     def show_start_screen(self):
         # game splash/start screen
         pass
@@ -82,7 +86,7 @@ class Game:
     def show_go_screen(self):
         # game over/continue
         pass
-
+# defining variables
 g = Game()
 g.show_start_screen()
 while g.running:
